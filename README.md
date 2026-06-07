@@ -1,105 +1,84 @@
-<!-- Copyright (c) 2026 De-ASI-INTERFACE / Richard Patterson - MIT License -->
+# TBS #1–#100 Options Trading System
 
-# TBS Options Trading System
-### TBS #1 - TBS #100 | Institutional-Grade Options Bot Series
+> **Copyright (c) 2025–2026 Richard Patterson (De-ASI-INTERFACE)**
+> Licensed under MIT — see [LICENSE](./LICENSE) for full terms.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
-[![Node.js](https://img.shields.io/badge/Node.js-20+-green.svg)](https://nodejs.org/)
-[![CI](https://github.com/De-ASI-INTERFACE/tbs-options-trading-system/actions/workflows/ci.yml/badge.svg)](https://github.com/De-ASI-INTERFACE/tbs-options-trading-system/actions)
+Institutional-grade options-only trading bot framework built as a 100-bot series (TBS #1–#100). Engineered for production deployment with strict risk controls, options Greeks analytics, IV surface modeling, multi-leg strategy templates, and GitHub Actions CI/CD.
 
 ---
 
-## Overview
+## Architecture Overview
 
-**TBS** (Trading Bot System) is a 100-bot options-only trading architecture built to institutional standards. Each numbered bot (`TBS-001` through `TBS-100`) is a self-contained strategy module that inherits the shared core engine, risk layer, and execution infrastructure.
+```
+src/
+  core.py             # BotConfig, TradeSignal, TradeMode
+  bots/
+    registry.py       # TBS-001 to TBS-100 bot definitions
+    engine.py         # Execution engine + signal routing
+  analytics/
+    options.py        # Black-Scholes, Greeks, IV percentile
+    volatility.py     # IV surface + skew analytics
+  risk/
+    manager.py        # Greeks-aware trade approval
+    exposure.py       # Portfolio-level risk aggregation
+  strategies/
+    base.py           # Abstract base strategy
+    spreads.py        # Vertical, calendar, diagonal
+    volatility.py     # Long/short vol playbooks
+    theta_harvest.py  # Defined-risk premium selling
+config/
+  default.yaml        # Default bot configuration
+tests/
+  test_registry.py
+  test_risk.py
+  test_analytics.py
+  test_engine.py
+.github/workflows/
+  ci.yml              # Lint + test on every push/PR
+docs/
+  ARCHITECTURE.md
+  STRATEGY_GUIDE.md
+```
 
-| Layer | Purpose |
+---
+
+## Bot Series (TBS #1–#100)
+
+Each bot ID (`tbs-001` through `tbs-100`) maps to a dedicated strategy slot.
+
+| Range | Strategy Family |
 |---|---|
-| **Core Engine** | Greeks calculation, IV surface, Black-Scholes/Binomial pricing |
-| **Risk Manager** | Delta/Gamma/Vega/Theta limits, portfolio-level drawdown circuit breakers |
-| **Strategy Bus** | Hot-swappable strategy modules (TBS-001 to TBS-100) |
-| **Execution Layer** | Smart order routing, multi-leg spread execution, slippage modeling |
-| **Data Layer** | Real-time option chain ingestion, historical vol surface reconstruction |
-| **Monitoring** | Grafana dashboards, Prometheus metrics, structured JSON logging |
-
----
-
-## Architecture
-
-```
-tbs-options-trading-system/
-├── src/
-│   ├── core/              # Engine: pricing, Greeks, IV surface
-│   ├── risk/              # Risk manager, position limits, circuit breakers
-│   ├── strategies/        # TBS-001 through TBS-100 strategy modules
-│   ├── execution/         # Order router, broker adapters, fill tracking
-│   ├── data/              # Market data feeds, option chain normalization
-│   ├── monitoring/        # Metrics, alerts, Grafana integration
-│   └── utils/             # Math, date helpers, logger
-├── tests/                 # Unit + integration tests (Jest)
-├── .github/workflows/     # CI/CD pipelines
-├── docker/                # Dockerfiles + compose
-├── configs/               # Per-bot YAML configs
-└── src/scripts/           # Bot launcher, backtest runner, health check
-```
+| #001–#010 | Directional Debit Spreads |
+| #011–#020 | Volatility Mean Reversion |
+| #021–#030 | Earnings Event Structures |
+| #031–#040 | Skew Dislocation Plays |
+| #041–#050 | Theta Harvest / Premium Selling |
+| #051–#060 | Gamma Scalping |
+| #061–#070 | Calendar & Diagonal Structures |
+| #071–#080 | Iron Condors & Butterflies |
+| #081–#090 | Ratio Spreads & Backspreads |
+| #091–#100 | Hedged Tail Risk / Macro Positioning |
 
 ---
 
 ## Quick Start
 
 ```bash
-# Install
-npm install
-
-# Configure
-cp configs/tbs-001.example.yml configs/tbs-001.yml
-
-# Run a single bot
-npm run bot -- --id 1
-
-# Run tests
-npm test
-
-# Backtest TBS-001
-npm run backtest -- --id 1 --from 2025-01-01 --to 2025-12-31
+git clone https://github.com/De-ASI-INTERFACE/tbs-options-trading-system
+cd tbs-options-trading-system
+pip install -e .[dev]
+pytest -q
 ```
 
 ---
 
-## Strategy Taxonomy (TBS-001 to TBS-100)
+## Risk Disclaimer
 
-| Range | Strategy Family |
-|---|---|
-| TBS-001-010 | Volatility Arbitrage (IV Rank / IV Percentile) |
-| TBS-011-020 | Delta-Neutral Theta Decay (Iron Condors, Butterflies) |
-| TBS-021-030 | Directional Spreads (Debit/Credit Vertical Spreads) |
-| TBS-031-040 | Calendar & Diagonal Spreads |
-| TBS-041-050 | Earnings Volatility Plays |
-| TBS-051-060 | VWAP / Order Flow Mean Reversion |
-| TBS-061-070 | Gamma Scalping |
-| TBS-071-080 | Long Volatility / Tail Risk Hedging |
-| TBS-081-090 | Ratio Spreads & Backspreads |
-| TBS-091-100 | ML-Enhanced Signal Strategies |
+This software is not financial advice. Options trading involves substantial risk of loss. Always paper trade before going live. Use hard position-size limits and daily loss caps.
 
 ---
 
-## Risk Framework
+## License & Copyright
 
-All bots share a hard risk envelope enforced at the portfolio level:
-
-- **Max Portfolio Delta**: configurable per-account notional
-- **Max Single-Position Vega**: 2% of NAV
-- **Daily Drawdown Circuit Breaker**: halts all bots at configurable % loss
-- **Gamma Spike Protection**: auto-flattens positions when gamma exceeds threshold
-- **Theta Floor**: minimum daily theta collection requirement per bot class
-
----
-
-## Copyright
-
-Copyright (c) 2026 De-ASI-INTERFACE / Richard Patterson. All rights reserved.
-See [LICENSE](LICENSE) and [NOTICE](NOTICE) for details.
-
-> **Risk Disclaimer**: Options trading involves substantial risk of loss.
-> This software is for research purposes only. Trade at your own risk.
+MIT License — see [LICENSE](./LICENSE).
+Proprietary trading logic and strategies are confidential IP of De-ASI-INTERFACE.

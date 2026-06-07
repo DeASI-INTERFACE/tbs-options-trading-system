@@ -1,0 +1,24 @@
+# TBS #1-#100 Default Bot Configuration
+# Copyright (c) 2025-2026 Richard Patterson (De-ASI-INTERFACE)
+
+trade_mode: paper
+
+risk:
+  max_daily_loss_pct: 0.02
+  max_position_risk_pct: 0.01
+  max_portfolio_delta: 0.30
+  max_portfolio_vega: 0.50
+
+execution:
+  min_ev_threshold: 0.0
+  min_confidence: 0.60
+
+analytics:
+  iv_percentile_min_sell: 50
+  iv_percentile_max_buy: 40
+  days_to_expiry_min: 7
+  days_to_expiry_max: 60
+
+logging:
+  level: INFO
+  format: "[{time}] [{level}] {message}"
