@@ -1,15 +1,35 @@
-# TBS #1–#100 Options Trading System
+<!--
+  OWNERSHIP: Richard Patterson (Entrepreneur & Trader, Akron, OH)
+  PROJECT: TBS Options Trading System — 100-Bot Institutional Series
+  COPYRIGHT: © 2026 Richard Patterson. All Rights Reserved.
+  LICENSE: Proprietary. Unauthorized reproduction prohibited.
+-->
 
-> **Copyright (c) 2025–2026 Richard Patterson (De-ASI-INTERFACE)**
-> Licensed under MIT — see [LICENSE](./LICENSE) for full terms.
+# TBS Options Trading System
 
-Institutional-grade options-only trading bot framework built as a 100-bot series (TBS #1–#100). Engineered for production deployment with strict risk controls, options Greeks analytics, IV surface modeling, multi-leg strategy templates, and GitHub Actions CI/CD.
+> **© 2026 Richard Patterson. All Rights Reserved.**  
+> TBS #1–#100 | Institutional-Grade Options Bot Series — De-ASI-INTERFACE
+
+![Python](https://img.shields.io/badge/Python-3.12-blue)
+![Solana](https://img.shields.io/badge/Solana-Options-purple)
+![Series](https://img.shields.io/badge/Bot%20Series-TBS%20%231--100-brightgreen)
+![CI](https://img.shields.io/badge/CI-GitHub%20Actions-success)
+![License](https://img.shields.io/badge/License-Proprietary-red)
+
+A 100-bot institutional options trading system engineered for Greeks analytics, implied volatility surface modeling, multi-leg strategy execution, and real-time risk management. Each bot in the TBS series is purpose-built for a specific options strategy or market regime.
 
 ---
 
-## Architecture Overview
+## System Architecture
 
 ```
+TBS Options Engine
+  ├── Greeks Analytics Module    — Delta, Gamma, Theta, Vega, Rho per position
+  ├── IV Surface Modeler         — Real-time implied volatility surface construction
+  ├── Multi-Leg Strategy Engine  — Spreads, straddles, iron condors, calendars
+  ├── Risk Manager               — Greeks-based exposure limits, drawdown guards
+  └── Execution Layer            — Order routing with slippage controls
+
 src/
   core.py             # BotConfig, TradeSignal, TradeMode
   bots/
@@ -42,22 +62,44 @@ docs/
 
 ---
 
-## Bot Series (TBS #1–#100)
-
-Each bot ID (`tbs-001` through `tbs-100`) maps to a dedicated strategy slot.
+## Bot Series Index
 
 | Range | Strategy Family |
 |---|---|
-| #001–#010 | Directional Debit Spreads |
-| #011–#020 | Volatility Mean Reversion |
-| #021–#030 | Earnings Event Structures |
-| #031–#040 | Skew Dislocation Plays |
-| #041–#050 | Theta Harvest / Premium Selling |
-| #051–#060 | Gamma Scalping |
-| #061–#070 | Calendar & Diagonal Structures |
-| #071–#080 | Iron Condors & Butterflies |
-| #081–#090 | Ratio Spreads & Backspreads |
-| #091–#100 | Hedged Tail Risk / Macro Positioning |
+| TBS #001–#010 | Directional Debit Spreads |
+| TBS #011–#020 | Volatility Mean Reversion |
+| TBS #021–#030 | Earnings Event Structures |
+| TBS #031–#040 | Skew Dislocation Plays |
+| TBS #041–#050 | Theta Harvest / Premium Selling |
+| TBS #051–#060 | Gamma Scalping |
+| TBS #061–#070 | Calendar & Diagonal Structures |
+| TBS #071–#080 | Iron Condors & Butterflies |
+| TBS #081–#090 | Ratio Spreads & Backspreads |
+| TBS #091–#100 | Hedged Tail Risk / Macro Positioning |
+
+---
+
+## Core Capabilities
+
+- **Greeks Analytics** — Real-time per-position delta, gamma, theta, vega, rho via Black-Scholes
+- **IV Surface Modeling** — Volatility smile and skew construction across strikes and expirations
+- **Multi-Leg Strategies** — Automated entry/exit for vertical spreads, straddles, iron condors, diagonals
+- **Real-Time Risk Management** — Greeks-based position limits and drawdown enforcement
+- **Regime Detection** — Adaptive strategy selection based on market volatility regime
+- **CI/CD Gate** — GitHub Actions lint + test on every push and PR
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Language | Python 3.12 |
+| Analytics | NumPy, SciPy (Black-Scholes, Greeks, IV) |
+| State | Redis for position and risk state persistence |
+| Observability | Prometheus + Grafana dashboard |
+| CI/CD | GitHub Actions |
+| Deployment | Docker Compose |
 
 ---
 
@@ -72,13 +114,45 @@ pytest -q
 
 ---
 
-## Risk Disclaimer
+## Environment Variables
 
-This software is not financial advice. Options trading involves substantial risk of loss. Always paper trade before going live. Use hard position-size limits and daily loss caps.
+```bash
+# Exchange credentials
+API_KEY=your_api_key
+API_SECRET=your_api_secret
+
+# Risk parameters
+MAX_PORTFOLIO_DELTA=100
+MAX_DRAWDOWN=0.10
+POSITION_SIZE_LIMIT=0.05
+
+# Observability
+PROMETHEUS_PORT=8001
+LOG_LEVEL=INFO
+LOG_JSON=true
+
+# Redis
+REDIS_URL=redis://localhost:6379/1
+```
 
 ---
 
-## License & Copyright
+## Risk Disclosure
 
-MIT License — see [LICENSE](./LICENSE).
-Proprietary trading logic and strategies are confidential IP of De-ASI-INTERFACE.
+Options trading involves significant risk and is not suitable for all investors. Leverage amplifies both gains and losses. This system is provided for research and development purposes only. Past performance is not indicative of future results. Never deploy capital you cannot afford to lose. Consult a licensed financial advisor before trading options.
+
+---
+
+## Roadmap
+
+- [ ] Complete TBS #001–#010 core Greeks analytics bots
+- [ ] IV surface modeling module (TBS #026–#050)
+- [ ] Regime detection integration
+- [ ] Portfolio-level Greeks hedging orchestrator
+- [ ] Full 100-bot series deployment
+
+---
+
+*© 2026 Richard Patterson. All Rights Reserved.*  
+*Built in Akron, Ohio. Engineered for institutional-grade options execution.*  
+*Unauthorized reproduction or distribution of this software is strictly prohibited.*
