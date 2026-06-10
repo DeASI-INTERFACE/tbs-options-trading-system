@@ -20,6 +20,7 @@ A 100-bot institutional options trading system engineered for Greeks analytics, 
 
 ---
 
+## System Overview
 ## System Architecture
 
 ```
@@ -64,6 +65,13 @@ docs/
 
 ## Bot Series Index
 
+| Range | Focus Area |
+|---|---|
+| TBS #1–#10 | Core Greeks analytics and single-leg execution |
+| TBS #11–#25 | Multi-leg spreads (verticals, straddles, strangles) |
+| TBS #26–#50 | IV surface modeling and term structure strategies |
+| TBS #51–#75 | Regime-conditioned strategy selection |
+| TBS #76–#100 | Portfolio-level Greeks hedging and risk orchestration |
 | Range | Strategy Family |
 |---|---|
 | TBS #001–#010 | Directional Debit Spreads |
@@ -81,6 +89,11 @@ docs/
 
 ## Core Capabilities
 
+- **Greeks Analytics** — Real-time per-position delta, gamma, theta, vega, rho calculation
+- **IV Surface Modeling** — Volatility smile construction across strikes and expirations
+- **Multi-Leg Strategies** — Automated entry/exit for complex options structures
+- **Real-Time Risk Management** — Greeks-based position limits and drawdown enforcement
+- **Regime Detection** — Adaptive strategy selection based on market volatility regime
 - **Greeks Analytics** — Real-time per-position delta, gamma, theta, vega, rho via Black-Scholes
 - **IV Surface Modeling** — Volatility smile and skew construction across strikes and expirations
 - **Multi-Leg Strategies** — Automated entry/exit for vertical spreads, straddles, iron condors, diagonals
@@ -108,8 +121,11 @@ docs/
 ```bash
 git clone https://github.com/De-ASI-INTERFACE/tbs-options-trading-system
 cd tbs-options-trading-system
-pip install -e .[dev]
-pytest -q
+git checkout Richy
+cp .env.example .env
+# Configure API keys and risk parameters in .env
+pip install -r requirements.txt
+python main.py
 ```
 
 ---
