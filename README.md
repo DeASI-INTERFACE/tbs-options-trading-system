@@ -13,6 +13,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12-blue)
 ![Solana](https://img.shields.io/badge/Solana-Options-purple)
 ![Series](https://img.shields.io/badge/Bot%20Series-TBS%20%231--100-brightgreen)
+![CI](https://img.shields.io/badge/CI-GitHub%20Actions-success)
 ![License](https://img.shields.io/badge/License-Proprietary-red)
 
 A 100-bot institutional options trading system engineered for Greeks analytics, implied volatility surface modeling, multi-leg strategy execution, and real-time risk management. Each bot in the TBS series is purpose-built for a specific options strategy or market regime.
@@ -20,6 +21,7 @@ A 100-bot institutional options trading system engineered for Greeks analytics, 
 ---
 
 ## System Overview
+## System Architecture
 
 ```
 TBS Options Engine
@@ -28,6 +30,35 @@ TBS Options Engine
   ├── Multi-Leg Strategy Engine  — Spreads, straddles, iron condors, calendars
   ├── Risk Manager               — Greeks-based exposure limits, drawdown guards
   └── Execution Layer            — Order routing with slippage controls
+
+src/
+  core.py             # BotConfig, TradeSignal, TradeMode
+  bots/
+    registry.py       # TBS-001 to TBS-100 bot definitions
+    engine.py         # Execution engine + signal routing
+  analytics/
+    options.py        # Black-Scholes, Greeks, IV percentile
+    volatility.py     # IV surface + skew analytics
+  risk/
+    manager.py        # Greeks-aware trade approval
+    exposure.py       # Portfolio-level risk aggregation
+  strategies/
+    base.py           # Abstract base strategy
+    spreads.py        # Vertical, calendar, diagonal
+    volatility.py     # Long/short vol playbooks
+    theta_harvest.py  # Defined-risk premium selling
+config/
+  default.yaml        # Default bot configuration
+tests/
+  test_registry.py
+  test_risk.py
+  test_analytics.py
+  test_engine.py
+.github/workflows/
+  ci.yml              # Lint + test on every push/PR
+docs/
+  ARCHITECTURE.md
+  STRATEGY_GUIDE.md
 ```
 
 ---
@@ -41,6 +72,18 @@ TBS Options Engine
 | TBS #26–#50 | IV surface modeling and term structure strategies |
 | TBS #51–#75 | Regime-conditioned strategy selection |
 | TBS #76–#100 | Portfolio-level Greeks hedging and risk orchestration |
+| Range | Strategy Family |
+|---|---|
+| TBS #001–#010 | Directional Debit Spreads |
+| TBS #011–#020 | Volatility Mean Reversion |
+| TBS #021–#030 | Earnings Event Structures |
+| TBS #031–#040 | Skew Dislocation Plays |
+| TBS #041–#050 | Theta Harvest / Premium Selling |
+| TBS #051–#060 | Gamma Scalping |
+| TBS #061–#070 | Calendar & Diagonal Structures |
+| TBS #071–#080 | Iron Condors & Butterflies |
+| TBS #081–#090 | Ratio Spreads & Backspreads |
+| TBS #091–#100 | Hedged Tail Risk / Macro Positioning |
 
 ---
 
@@ -51,6 +94,12 @@ TBS Options Engine
 - **Multi-Leg Strategies** — Automated entry/exit for complex options structures
 - **Real-Time Risk Management** — Greeks-based position limits and drawdown enforcement
 - **Regime Detection** — Adaptive strategy selection based on market volatility regime
+- **Greeks Analytics** — Real-time per-position delta, gamma, theta, vega, rho via Black-Scholes
+- **IV Surface Modeling** — Volatility smile and skew construction across strikes and expirations
+- **Multi-Leg Strategies** — Automated entry/exit for vertical spreads, straddles, iron condors, diagonals
+- **Real-Time Risk Management** — Greeks-based position limits and drawdown enforcement
+- **Regime Detection** — Adaptive strategy selection based on market volatility regime
+- **CI/CD Gate** — GitHub Actions lint + test on every push and PR
 
 ---
 
@@ -59,11 +108,11 @@ TBS Options Engine
 | Layer | Technology |
 |---|---|
 | Language | Python 3.12 |
-| Data | Market data feeds via exchange APIs |
-| Analytics | NumPy, SciPy for Greeks and IV computation |
+| Analytics | NumPy, SciPy (Black-Scholes, Greeks, IV) |
 | State | Redis for position and risk state persistence |
 | Observability | Prometheus + Grafana dashboard |
-| CI/CD | GitHub Actions production gate |
+| CI/CD | GitHub Actions |
+| Deployment | Docker Compose |
 
 ---
 
@@ -106,14 +155,14 @@ REDIS_URL=redis://localhost:6379/1
 
 ## Risk Disclosure
 
-Options trading involves significant risk and is not suitable for all investors. Leverage amplifies both gains and losses. This system is provided for informational and development purposes only. Past performance is not indicative of future results. Never deploy capital you cannot afford to lose. Consult a licensed financial advisor before trading options.
+Options trading involves significant risk and is not suitable for all investors. Leverage amplifies both gains and losses. This system is provided for research and development purposes only. Past performance is not indicative of future results. Never deploy capital you cannot afford to lose. Consult a licensed financial advisor before trading options.
 
 ---
 
 ## Roadmap
 
-- [ ] Complete TBS #1–#10 core Greeks analytics bots
-- [ ] IV surface modeling module (TBS #26–#50)
+- [ ] Complete TBS #001–#010 core Greeks analytics bots
+- [ ] IV surface modeling module (TBS #026–#050)
 - [ ] Regime detection integration
 - [ ] Portfolio-level Greeks hedging orchestrator
 - [ ] Full 100-bot series deployment
